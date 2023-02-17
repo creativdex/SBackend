@@ -1,10 +1,11 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import String, Integer
+from sqlalchemy.orm import Mapped, mapped_column
 from app.db.models import Base
 
 class CityDB(Base):
     __tablename__ = 'city'
-    id: Column = Column(Integer, unique=True, autoincrement=True, nullable=False, primary_key=True)
-    name = Column(String, unique=True, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, unique=True, autoincrement=True, nullable=False, primary_key=True)
+    name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
 
 
