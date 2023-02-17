@@ -1,3 +1,5 @@
 /.idea/
 /AppealData.iml
 /venv/
+__pycache__
+/.vscode/
