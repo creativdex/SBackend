@@ -47,7 +47,7 @@ async def delete_by_id(id: int, session: AsyncSession = Depends(get_session)):
     city_dal = CityDAL(session)
     if not await city_dal.get_by_id(id):
         raise HTTPException(status_code=422,
-                            detail={'loc': ['body','phone'],
+                            detail={'loc': ['body','id'],
                                     'msg': 'City not found',
                                     'type': 'value_error'})
     await city_dal.delete_by_id(id)

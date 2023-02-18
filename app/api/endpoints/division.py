@@ -47,7 +47,7 @@ async def delete_by_id(id: int, session: AsyncSession = Depends(get_session)):
     division_dal = DivisionDAL(session)
     if not await division_dal.get_by_id(id):
         raise HTTPException(status_code=422,
-                            detail={'loc': ['body','phone'],
+                            detail={'loc': ['body','id'],
                                     'msg': 'Division not found',
                                     'type': 'value_error'})
     await division_dal.delete_by_id(id)
