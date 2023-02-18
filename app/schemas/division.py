@@ -4,7 +4,7 @@ from app.schemas.city import City
 
 class DivisionIn(BaseModel):
     name: str
-    id_city: int
+    city_id: int
 
     class Config:
         orm_mode = True
@@ -13,5 +13,5 @@ class DivisionIn(BaseModel):
 class Division(DivisionIn):
     id: int
     name: str
-    id_city: int = Field(...,exclude=False)
+    city_id: int = Field(...,exclude=False)
     city: City
