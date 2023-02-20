@@ -11,6 +11,3 @@ class CashboxDB(Base):
     division_id: Mapped[int] = mapped_column(Integer, ForeignKey(DivisionDB.id), nullable=False)
     division = relationship(DivisionDB,  lazy='joined')
 
-
-
-

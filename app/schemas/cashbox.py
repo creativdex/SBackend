@@ -12,5 +12,5 @@ class CashboxIn(BaseModel):
 
 class Cashbox(CashboxIn):
     id: int
-    division_id: int = Field(..., exclude=False)
+    division_id: int = Field(..., exclude=True)
     division: Division

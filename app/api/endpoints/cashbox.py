@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.post("/add_cashbox", response_model=Cashbox)
-async def add_division(body: CashboxIn,
+async def add_cashbox(body: CashboxIn,
                        session: AsyncSession = Depends(get_session)):
     cashbox_dal = CashboxDAL(session)
     new_cashbox = await cashbox_dal.create_cashbox(body)

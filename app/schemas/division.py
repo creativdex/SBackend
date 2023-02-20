@@ -13,5 +13,5 @@ class DivisionIn(BaseModel):
 class Division(DivisionIn):
     id: int
     name: str
-    city_id: int = Field(...,exclude=False)
+    city_id: int = Field(...,exclude=True)
     city: City

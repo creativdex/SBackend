@@ -24,6 +24,7 @@ from app.db.models import Base
 from app.models.user import UserDB
 from app.models.division import DivisionDB
 from app.models.city import CityDB
+from app.models.cashbox import CashboxDB
 
 target_metadata = Base.metadata
 # other values from the config, defined by the needs of env.py,
