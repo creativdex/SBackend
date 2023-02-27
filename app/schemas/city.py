@@ -10,7 +10,3 @@ class CityIn(BaseModel):
 
 class City(CityIn):
     id: int
-
-
-
-

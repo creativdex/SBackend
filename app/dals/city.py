@@ -11,9 +11,7 @@ class CityDAL:
 
     async def create_city(self, city: CityIn) -> CityDB:
         """Создание города в БД"""
-        city_db = CityDB(
-            name=city.name
-        )
+        city_db = CityDB(name=city.name)
         self.session.add(city_db)
         await self.session.commit()
         await self.session.refresh(city_db)
@@ -38,7 +36,3 @@ class CityDAL:
         query = delete(CityDB).where(CityDB.id == id)
         await self.session.execute(query)
         await self.session.commit()
-
-
-
-

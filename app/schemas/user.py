@@ -8,12 +8,12 @@ class UserIn(BaseModel):
     tg_id: int | None
     name: str
     phone: str
-    city_id: int =Field(..., exclude=True)
+    city_id: int = Field(..., exclude=True)
 
-    @validator('phone')
+    @validator("phone")
     def phone_validator(cls, v):
-        if not re.match(r'^\d{10}$', v):
-            raise ValueError('Неверный формат номера телефона')
+        if not re.match(r"^\d{10}$", v):
+            raise ValueError("Неверный формат номера телефона")
         return v
 
     class Config:
@@ -24,5 +24,3 @@ class UserOut(UserIn):
     user_id: uuid.UUID
     city: City
     privileges: int
-
-
