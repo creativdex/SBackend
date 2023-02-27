@@ -21,7 +21,7 @@ class UserDAL:
         await self.session.refresh(user_db)
         return user_db
 
-    async def update_user(self, user:UserIn) -> UserDB: # TODO Add Update user
+    async def update_user(self, user: UserIn) -> UserDB:  # TODO Add Update user
         pass
 
     async def get_all(self) -> list[UserDB]:
@@ -29,7 +29,7 @@ class UserDAL:
         query = select(UserDB)
         result = await self.session.execute(query)
         rows = result.fetchall()
-        users:list[UserDB] = [row[0] for row in rows]
+        users: list[UserDB] = [row[0] for row in rows]
         return users
 
     async def get_by_phone(self, phone: str) -> UserDB:
@@ -46,10 +46,6 @@ class UserDAL:
 
     async def delete_by_phone(self, phone: str) -> None:
         """Удаление пользователя"""
-        query = delete(UserDB).where(UserDB.phone is phone)
+        query = delete(UserDB).where(UserDB.phone == phone)
         await self.session.execute(query)
         await self.session.commit()
-
-
-
-

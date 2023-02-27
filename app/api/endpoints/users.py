@@ -60,7 +60,7 @@ async def get_by_phone(tg_id: int, session: AsyncSession = Depends(get_session))
         return user
 
 
-@router.delete("/delete{phone}", status_code=204)
+@router.delete("/delete/{phone}", status_code=204)
 async def delete_by_phone(phone: str, session: AsyncSession = Depends(get_session)):
     user_dal = UserDAL(session)
     if not await user_dal.get_by_phone(phone):

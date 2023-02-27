@@ -42,7 +42,7 @@ async def get_by_id(id: int, session: AsyncSession = Depends(get_session)):
         return division
 
 
-@router.delete("/delete{id}", status_code=204)
+@router.delete("/delete/{id}", status_code=204)
 async def delete_by_id(id: int, session: AsyncSession = Depends(get_session)):
     division_dal = DivisionDAL(session)
     if not await division_dal.get_by_id(id):

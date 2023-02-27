@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     SERVER_HOST: str
     SERVER_PORT: int
 
+    # BITRIX CONFIG
+    BITRIX_WEBHOOK: str
+
     class Config:
         env_file = PROJECT_DIR / 'config.env'
         case_sensitive = True

@@ -5,9 +5,12 @@ from app.db.models import Base
 
 
 class CashboxDB(Base):
-    __tablename__ = 'cashbox'
-    id: Mapped[int] = mapped_column(Integer, unique=True, autoincrement=True, nullable=False, primary_key=True)
+    __tablename__ = "cashbox"
+    id: Mapped[int] = mapped_column(
+        Integer, unique=True, autoincrement=True, nullable=False, primary_key=True
+    )
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    division_id: Mapped[int] = mapped_column(Integer, ForeignKey(DivisionDB.id), nullable=False)
-    division = relationship(DivisionDB,  lazy='joined')
-
+    division_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey(DivisionDB.id), nullable=False
+    )
+    division = relationship(DivisionDB, lazy="joined")

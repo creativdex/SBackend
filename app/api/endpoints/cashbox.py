@@ -42,7 +42,7 @@ async def get_by_id(id: int, session: AsyncSession = Depends(get_session)):
         return cashbox
 
 
-@router.delete("/delete{id}", status_code=204)
+@router.delete("/delete/{id}", status_code=204)
 async def delete_by_id(id: int, session: AsyncSession = Depends(get_session)):
     cashbox_dal = CashboxDAL(session)
     if not await cashbox_dal.get_by_id(id):
