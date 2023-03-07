@@ -11,7 +11,7 @@ class UserDB(Base):
     user_id: Mapped[str] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    tg_id: Mapped[int] = mapped_column(Integer, unique=True)
+    tg_id: Mapped[str] = mapped_column(String, unique=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     phone: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     city_id: Mapped[int] = mapped_column(Integer, ForeignKey(CityDB.id), nullable=False)

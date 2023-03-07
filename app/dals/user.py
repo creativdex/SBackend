@@ -1,3 +1,4 @@
+from uuid import UUID
 from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.user import UserDB
@@ -38,14 +39,41 @@ class UserDAL:
         result = await self.session.execute(query)
         return result.scalars().first()
 
-    async def get_by_tg_id(self, tg_id: int) -> UserDB:
+    async def get_by_tg_id(self, tg_id: str) -> UserDB:
         """Получение пользователя по телефону"""
         query = select(UserDB).where(UserDB.tg_id == tg_id)
         result = await self.session.execute(query)
         return result.scalars().first()
+
+    async def get_by_uuid(self, uuid: str) -> UserDB:
+        """Получение пользователя"""
+        if await self.check_uuid(uuid):
+            query = select(UserDB).where(UserDB.user_id == uuid)
+            result = await self.session.execute(query)
+            return result.scalars().first()
+        else:
+            return None
+
+    async def get_by_something(self, something) -> UserDB:
+        user = await self.get_by_uuid(something)
+        if user is None:
+            user = await self.get_by_tg_id(something)
+        if user is None:
+            user = await self.get_by_phone(something)
+        if user is None:
+            return None
+        return user
 
     async def delete_by_phone(self, phone: str) -> None:
         """Удаление пользователя"""
         query = delete(UserDB).where(UserDB.phone == phone)
         await self.session.execute(query)
         await self.session.commit()
+
+    @staticmethod
+    async def check_uuid(uuid: str):
+        try:
+            UUID(str(uuid))
+            return True
+        except ValueError:
+            return False

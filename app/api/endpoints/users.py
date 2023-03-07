@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.dals.user import UserDAL
-from app.schemas.user import UserOut, UserIn
+from app.schemas.user import User, UserIn
 from app.db.session import get_session
 
 router = APIRouter()
 
 
-@router.post("/register", response_model=UserOut)
+@router.post("/register", response_model=User)
 async def register_new_user(body: UserIn, session: AsyncSession = Depends(get_session)):
     user_dal = UserDAL(session)
     if (
@@ -27,45 +27,32 @@ async def register_new_user(body: UserIn, session: AsyncSession = Depends(get_se
         return new_user
 
 
-@router.get("/get_all", response_model=list[UserOut])
+@router.get("/get_all", response_model=list[User])
 async def get_all_users(session: AsyncSession = Depends(get_session)):
     user_dal = UserDAL(session)
     users = await user_dal.get_all()
     if users is None:
         raise HTTPException(
             status_code=422,
-            detail={"loc": ["body"], "msg": "Users not found", "type": "value_error"},
+            detail={
+                "loc": ["body"],
+                "msg": "Users not found",
+                "type": "value_error",
+            },
         )
     else:
         return users
 
 
-@router.get("/get/{phone}", response_model=UserOut)
-async def get_by_phone(phone: str, session: AsyncSession = Depends(get_session)):
+@router.get("/get_by_something/{something}", response_model=User)
+async def get_by_something(something, session: AsyncSession = Depends(get_session)):
     user_dal = UserDAL(session)
-    user = await user_dal.get_by_phone(phone)
+    user = await user_dal.get_by_something(something)
     if user is None:
         raise HTTPException(
             status_code=422,
             detail={
-                "loc": ["body", "phone"],
-                "msg": "User not found",
-                "type": "value_error",
-            },
-        )
-    else:
-        return user
-
-
-@router.get("/get/{tg_id}", response_model=UserOut)
-async def get_by_tg_id(tg_id: int, session: AsyncSession = Depends(get_session)):
-    user_dal = UserDAL(session)
-    user = await user_dal.get_by_tg_id(tg_id)
-    if user is None:
-        raise HTTPException(
-            status_code=422,
-            detail={
-                "loc": ["body", "tg_id"],
+                "loc": ["body", "variant"],
                 "msg": "User not found",
                 "type": "value_error",
             },

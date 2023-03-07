@@ -1,11 +1,11 @@
 import re
-import uuid
+from uuid import UUID
 from pydantic import BaseModel, validator, Field
 from app.schemas.city import City
 
 
 class UserIn(BaseModel):
-    tg_id: int | None
+    tg_id: str | None
     name: str
     phone: str
     city_id: int = Field(..., exclude=True)
@@ -20,7 +20,7 @@ class UserIn(BaseModel):
         orm_mode = True
 
 
-class UserOut(UserIn):
-    user_id: uuid.UUID
+class User(UserIn):
+    user_id: UUID
     city: City
     privileges: int

@@ -52,32 +52,17 @@ async def get_all_type(session: AsyncSession = Depends(get_session)):
 async def get_all_is_show(session: AsyncSession = Depends(get_session)):
     type_of_problem_dal = TypeOfProblemDAL(session)
     type_of_problem = await type_of_problem_dal.get_all_is_show()
-    if type_of_problem is None:
+    if type_of_problem == []:
         raise HTTPException(
             status_code=422,
             detail={
                 "loc": ["body"],
-                "msg": "Type of problem not found",
+                "msg": "Type of problem is show not found",
                 "type": "value_error",
             },
         )
     else:
         return type_of_problem
-
-
-@router.delete("/delete_all", status_code=204)
-async def delete_all(session: AsyncSession = Depends(get_session)):
-    type_of_problem_dal = TypeOfProblemDAL(session)
-    if type_of_problem_dal.get_all() is None:
-        raise HTTPException(
-            status_code=422,
-            detail={
-                "loc": ["body"],
-                "msg": "Type of problem not found",
-                "type": "value_error",
-            },
-        )
-    await type_of_problem_dal.delete_all()
 
 
 @router.get("/switch_is_show/{id}", response_model=TypeOfProblem)
@@ -94,3 +79,18 @@ async def switch_is_show(id: int, session: AsyncSession = Depends(get_session)):
             },
         )
     return await type_of_problem_dal.switch_is_show(type_of_problem)
+
+
+@router.delete("/delete_all", status_code=204)
+async def delete_all(session: AsyncSession = Depends(get_session)):
+    type_of_problem_dal = TypeOfProblemDAL(session)
+    if type_of_problem_dal.get_all() is None:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "loc": ["body"],
+                "msg": "Type of problem not found",
+                "type": "value_error",
+            },
+        )
+    await type_of_problem_dal.delete_all()

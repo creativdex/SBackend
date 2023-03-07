@@ -1,3 +1,6 @@
+import json
+import logging
+import logging.config
 from pathlib import Path
 from pydantic import BaseSettings, PostgresDsn, validator
 
@@ -31,6 +34,9 @@ class Settings(BaseSettings):
     # BITRIX CONFIG
     BITRIX_WEBHOOK: str
 
+    # LOGGINING CONFIG
+    LOGINING_SETTINGS: dict = json.load(open(PROJECT_DIR / "logger.json"))
+
     class Config:
         env_file = PROJECT_DIR / "config.env"
         case_sensitive = True
@@ -38,3 +44,5 @@ class Settings(BaseSettings):
 
 
 settings: Settings = Settings()
+logging.config.dictConfig(settings.LOGINING_SETTINGS)
+logger = logging.getLogger(__name__)

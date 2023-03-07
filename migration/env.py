@@ -26,6 +26,7 @@ from app.models.division import DivisionDB
 from app.models.city import CityDB
 from app.models.cashbox import CashboxDB
 from app.models.type_of_problem import TypeOfProblemDB
+from app.models.appeal import AppealDB
 
 target_metadata = Base.metadata
 # other values from the config, defined by the needs of env.py,
