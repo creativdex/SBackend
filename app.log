@@ -1,5 +1,0 @@
-ERROR    - (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "appeal" violates foreign key constraint "appeal_type_of_problem_id_fkey"
-DETAIL:  Key (type_of_problem_id)=(0) is not present in table "type_of_problem".
-[SQL: INSERT INTO appeal (type_of_problem_id, user_id, division_id, description, files, status) VALUES ($1::INTEGER, $2::UUID, $3::INTEGER, $4::VARCHAR, $5::VARCHAR, $6::BOOLEAN) RETURNING appeal.id]
-[parameters: (0, UUID('3fa85f64-5717-4562-b3fc-2c963f66afa6'), 0, 'string', 'string', False)]
-(Background on this error at: https://sqlalche.me/e/20/gkpj)

@@ -18,3 +18,7 @@ class Bitrix:
             item["id"] = int(item.pop("ID"))
             item["name"] = item.pop("VALUE")
         return type_of_problem
+
+    @staticmethod
+    async def send_appeal_to_bx():
+        pass

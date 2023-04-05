@@ -31,6 +31,23 @@ async def get_all_division(session: AsyncSession = Depends(get_session)):
         return divisions
 
 
+@router.get("/get_by_city", response_model=list[Division])
+async def get_by_city(city_id: int, session: AsyncSession = Depends(get_session)):
+    division_dal = DivisionDAL(session)
+    divisions = await division_dal.get_by_city_id(city_id)
+    if divisions is None:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "loc": ["body"],
+                "msg": "Division not found",
+                "type": "value_error",
+            },
+        )
+    else:
+        return divisions
+
+
 @router.get("/get/{id}", response_model=Division)
 async def get_by_id(id: int, session: AsyncSession = Depends(get_session)):
     division_dal = DivisionDAL(session)

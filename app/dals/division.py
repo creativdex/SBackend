@@ -21,14 +21,22 @@ class DivisionDAL:
         query = select(DivisionDB)
         result = await self.session.execute(query)
         rows = result.fetchall()
-        cities: list[DivisionDB] = [row[0] for row in rows]
-        return cities
+        division: list[DivisionDB] = [row[0] for row in rows]
+        return division
 
     async def get_by_id(self, id: int) -> DivisionDB:
         """Получение подразделения по ID"""
         query = select(DivisionDB).where(DivisionDB.id == id)
         result = await self.session.execute(query)
         return result.scalars().first()
+
+    async def get_by_city_id(self, id: int) -> DivisionDB:
+        """Получение подразделения по ID"""
+        query = select(DivisionDB).where(DivisionDB.city_id == id)
+        result = await self.session.execute(query)
+        rows = result.fetchall()
+        division: list[DivisionDB] = [row[0] for row in rows]
+        return division
 
     async def delete_by_id(self, id: int) -> None:
         """Удаление подразделения"""
