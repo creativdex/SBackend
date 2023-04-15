@@ -31,7 +31,7 @@ class DivisionDAL:
         return result.scalars().first()
 
     async def get_by_city_id(self, id: int) -> DivisionDB:
-        """Получение подразделения по ID"""
+        """Получение подразделения по ID города"""
         query = select(DivisionDB).where(DivisionDB.city_id == id)
         result = await self.session.execute(query)
         rows = result.fetchall()

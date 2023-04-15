@@ -1,4 +1,5 @@
-from sqlalchemy import String, Integer, Boolean, ForeignKey
+from datetime import datetime
+from sqlalchemy import String, Integer, Boolean, ForeignKey, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.models import Base
@@ -10,6 +11,12 @@ from app.models.division import DivisionDB
 class AppealDB(Base):
     __tablename__ = "appeal"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    dt_start: Mapped[datetime] = mapped_column(
+        Date, nullable=False, default=datetime.now()
+    )
+    dt_finish: Mapped[datetime] = mapped_column(
+        Date, nullable=True
+    )
     type_of_problem_id: Mapped[int] = mapped_column(
         Integer, ForeignKey(TypeOfProblemDB.id), nullable=False
     )

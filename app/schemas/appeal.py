@@ -18,6 +18,8 @@ class AppealIn(BaseModel):
 
 class Appeal(AppealIn):
     id: int
+    dt_start: str
+    dt_start: str | None
     type_of_problem: TypeOfProblem = Field(exclude={'is_show'})
     user: User
     division: Division = Field(exclude={'city'})
